@@ -8,8 +8,9 @@ The app is designed to use a layered architecture. The architecture is heavily i
 
 ##  The .env file
 
-The .env file must be created in the root of the project, with the following content:
+The .env file must be created in the root of the project, with the following content: </br>
 MONGODB = 'mongodb://url:port/databasename' </br>
+PORT = 3001 </br>
 TOKEN_SECRET = 'MyS3cr3tK3Y'
 
 #### Use the npm scripts:
