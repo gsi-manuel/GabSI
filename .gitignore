@@ -5,3 +5,4 @@ yarn.lock
 .directory
 .vscode
 .env
+.idea
