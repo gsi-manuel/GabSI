@@ -7,9 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production --config config/webpack.config.js",
     "dev-build": "webpack --mode development --config config/webpack.config.js",
-    "start": "yarn run build && node ./dist/index.js",
     "dev-start": "yarn run dev-build && node ./dist/index.js",
-    "start:watch" : "nodemon"
+    "start" : "nodemon"
   },
   "keywords": [
     "typescript.",
