@@ -8,17 +8,17 @@ export class ProvinceRoutes {
     constructor() {
         this.provinceController = new ProvinceController();
     }      
-    public routes(app: any): void {          
-        app.route('/admin/provinces')
+    public routes(route: any): any {          
+        route.route('/')
         .get((req: Request, res: Response) => {            
             this.provinceController.find(req, res);
         })
-        // POST endpoint
+        // POST endpoint 
         .post((req: Request, res: Response) => {   
             this.provinceController.create(req, res);
         });   
         
-        app.route('/admin/provinces/:id')
+        route.route('/:id')
         .get((req: Request, res: Response) => {            
             this.provinceController.findOne(req, res);
         })
@@ -28,5 +28,7 @@ export class ProvinceRoutes {
         .put((req: Request, res: Response) => {   
             this.provinceController.update(req, res);
         });
+
+        return route;
     }
 }

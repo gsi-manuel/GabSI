@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import { Request, Response, Router} from "express";
 
 import { ProvinceRoutes } from './province.routes';
 
@@ -14,7 +14,9 @@ export class Routes {
             res.status(200).send({
                 message: 'GET request successfulll!!!!'
             });
-        });    
-        this.provinceRoutes.routes(app);                  
+        });  
+        
+        let provinceRoute = this.provinceRoutes.routes(Router());        
+        app.use('/admin/provinces', provinceRoute)          
     }
 }
