@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production --config config/webpack.config.js",
-    "start": "yarn run build && node ./dist/index.js"
+    "dev-build": "webpack --mode development --config config/webpack.config.js",
+    "start": "yarn run build && node ./dist/index.js",
+    "dev-start": "yarn run dev-build && node ./dist/index.js",
+    "start:watch" : "nodemon"
   },
   "keywords": [
     "typescript.",
@@ -44,7 +47,8 @@
     "@types/webpack": "^4.4.0",
     "dotenv": "^8.0.0",
     "mongoose-middleware": "^1.0.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "nodemon": "^1.19.1"
   },
   "husky": {
     "hooks": {
@@ -56,5 +60,18 @@
       "prettier --write --print-width 120 --single-quote --tab-width 2 --trailing-comma all --no-bracket-spacing",
       "git add"
     ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    ".git",
+    "node_modules"
+    ],
+    "watch": [
+    "src/"
+    ],
+    "exec": "yarn dev-start",
+    "ext": "ts"
   }
 }
