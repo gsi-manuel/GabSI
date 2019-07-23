@@ -3,22 +3,21 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 const dotenv = require('dotenv');
-
-import { Routes } from './routes/routes';
+import {InversifyExpressServer} from 'inversify-express-utils';
+import container from './container';
 
 class App {
   public express: express.Application;
-  public routePrv: Routes = new Routes();
 
-  constructor () {
-    this.express = express();
+  constructor() {
+    const server = new InversifyExpressServer(container);
+    this.express = server.build();
     this.config();
-    this.routePrv.routes(this.express);
   }
 
   private config(): void {
     this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: false }));
+    this.express.use(bodyParser.urlencoded({extended: false}));
     this.express.use(helmet());
     this.express.use(cors());
     dotenv.config();

@@ -1,15 +1,15 @@
-import {Request, Response} from "express";
+import {Request, Response} from 'express';
 
-import { ProvinceController } from '../controllers/province.controller';
+import {ProvinceController} from '../controllers/province.controller';
 
-export class ProvinceRoutes { 
-    private provinceController: ProvinceController;
+export class ProvinceRoutes {
+  //    private provinceController: ProvinceController;
 
-    constructor() {
-        this.provinceController = new ProvinceController();
-    }      
-    public routes(route: any): any {          
-        route.route('/')
+  constructor() {
+    //      this.provinceController = new ProvinceController();
+  }
+  public routes(route: any): any {
+    /*    route.route('/')
         .get((req: Request, res: Response) => {            
             this.provinceController.find(req, res);
         })
@@ -30,5 +30,6 @@ export class ProvinceRoutes {
         });
 
         return route;
-    }
+        */
+  }
 }

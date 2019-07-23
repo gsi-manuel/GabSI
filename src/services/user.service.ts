@@ -1,6 +1,8 @@
 import {BaseRepository} from '../repositories/base/base-repository';
 import {UserModel} from '../models/user.model';
+import {injectable} from 'inversify';
 
+@injectable()
 export class UserService {
   private repo: BaseRepository;
 

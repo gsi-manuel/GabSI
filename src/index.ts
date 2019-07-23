@@ -1,5 +1,6 @@
+import 'reflect-metadata';
 import app from './App';
-import { Config } from './config/config';
+import {Config} from './config/config';
 
 const config = new Config();
 require('./config/db');
