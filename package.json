@@ -8,7 +8,8 @@
     "build": "webpack --mode production --config config/webpack.config.js",
     "dev-build": "webpack --mode development --config config/webpack.config.js",
     "dev-start": "yarn run dev-build && node ./dist/index.js",
-    "start" : "nodemon"
+    "start": "nodemon",
+    "start:debug": "node --inspect=5858 -r ts-node/register ./src/index.ts"
   },
   "keywords": [
     "typescript.",
@@ -19,6 +20,7 @@
   "author": "gsi-manuel",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -49,10 +51,10 @@
     "dotenv": "^8.0.0",
     "jest": "^24.8.0",
     "mongoose-middleware": "^1.0.0",
+    "nodemon": "^1.19.1",
     "reflect-metadata": "^0.1.13",
     "supertest": "^4.0.2",
-    "ts-jest": "^24.0.2",
-    "nodemon": "^1.19.1"
+    "ts-jest": "^24.0.2"
   },
   "husky": {
     "hooks": {
@@ -67,13 +69,13 @@
   },
   "nodemonConfig": {
     "ignore": [
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    ".git",
-    "node_modules"
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
     ],
     "watch": [
-    "src/"
+      "src/"
     ],
     "exec": "yarn dev-start",
     "ext": "ts"
