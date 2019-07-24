@@ -25,8 +25,7 @@ export class App {
       })
       .build();
     this.config();
-    this.socket = null;
-    // socketIO.listen(server);
+    this.socket = socketIO.listen(server);
   }
 
   static getInstance(): App {
