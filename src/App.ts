@@ -2,21 +2,29 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
-import * as http from 'http';
 import * as socketIO from 'socket.io';
 const dotenv = require('dotenv');
 import {InversifyExpressServer} from 'inversify-express-utils';
 import container from './container';
 
-class App {
+export class App {
+  private static instance: App;
   public express: express.Application;
   public socket: socketIO.Server;
 
-  constructor() {
+  private constructor() {
     const server = new InversifyExpressServer(container);
     this.express = server.build();
     this.config();
     this.socket = socketIO.listen(server);
+  }
+
+  static getInstance(): App {
+    if (!App.instance) {
+      App.instance = new App();
+    }
+
+    return App.instance;
   }
 
   private config(): void {
@@ -29,5 +37,3 @@ class App {
 
   private registerMiddleWare(): void {}
 }
-
-export default new App().express;
