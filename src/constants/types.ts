@@ -3,4 +3,5 @@ export let TYPES = {
   ChatService: Symbol('ChatService'),
   UserService: Symbol('UserService'),
   VerifyTokenMiddleware: Symbol('VerifyTokenMiddleware'),
+  DecodeJWTMiddleware: Symbol('DecodeJWTMiddleware'),
 };

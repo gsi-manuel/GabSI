@@ -20,8 +20,8 @@
   "author": "gsi-manuel",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.6",
     "@types/socket.io": "^2.1.2",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -29,6 +29,7 @@
     "husky": "^3.0.1",
     "inversify": "^5.0.1",
     "inversify-express-utils": "^6.3.2",
+    "jsonwebtoken": "^8.5.1",
     "lint-staged": "^9.2.0",
     "mongoose": "^5.6.5",
     "prettier": "^1.18.2",
