@@ -25,7 +25,7 @@ export class BaseRepository implements IWrite, IRead {
         } else {
           item.save((err: any, new_obj: any) => {
             if (err) reject(err.name + ': ' + err.message);
-            resolve();
+            resolve(new_obj);
           });
         }
       });
@@ -142,7 +142,10 @@ export class BaseRepository implements IWrite, IRead {
 
   public findOneBy(criteria: any): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
-      this.schema.findOneBy(criteria, new ManageResults(resolve, reject).oneItemCallBack);
+      console.log(criteria);
+      this.schema.findOne(criteria, (err: any, obj: any) =>
+        new ManageResults(resolve, reject).oneItemCallBack(err, obj),
+      );
     });
   }
 }
@@ -165,6 +168,7 @@ class ManageResults {
 
   public updateItemCallBack(err: any, obj: any): void {
     if (err) {
+      console.log(err);
       this.reject(err.name + ': ' + err.message);
     } else {
       this.resolve();

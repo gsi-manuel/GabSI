@@ -44,11 +44,19 @@ export class ChatService {
     });
   }
 
-  public retrieveOrCreateNewChat(request: Request, id: string): any {
-    let chat = this.chatRepository.findOneBy({id: id});
+  public async retrieveOrCreateNewChat(fromUserId: string, toUserId: string) {
+    let chat = this.chatRepository.findOneBy({id: `${fromUserId}-${toUserId}`});
     if (!chat) {
-      // TODO create
+      chat = await this.chatRepository.create(
+        {
+          id: `${fromUserId}-${toUserId}`,
+        },
+        {},
+      );
     }
+
+    this.connect();
+    return chat;
   }
 
   // Protectes

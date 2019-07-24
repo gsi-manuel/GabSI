@@ -4,6 +4,7 @@ import {
   httpGet,
   httpPost,
   httpDelete,
+  requestBody,
   request,
   response,
   requestParam,

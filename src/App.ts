@@ -14,9 +14,19 @@ export class App {
 
   private constructor() {
     const server = new InversifyExpressServer(container);
-    this.express = server.build();
+    this.express = server
+      .setConfig(app => {
+        app.use(
+          bodyParser.urlencoded({
+            extended: true,
+          }),
+        );
+        app.use(bodyParser.json());
+      })
+      .build();
     this.config();
-    this.socket = socketIO.listen(server);
+    this.socket = null;
+    // socketIO.listen(server);
   }
 
   static getInstance(): App {
