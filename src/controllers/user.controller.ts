@@ -1,70 +1,79 @@
-import {Request, Response} from 'express';
+import * as express from 'express';
+import {
+  controller,
+  httpGet,
+  httpPost,
+  httpDelete,
+  request,
+  response,
+  requestParam,
+  BaseHttpController,
+  httpPatch,
+} from 'inversify-express-utils';
+import {inject} from 'inversify';
+import {TYPES} from '../constants/types';
 
 import UserService from '../services/user.service';
 
-export class UserController {
-  private userService: UserService;
-
-  constructor() {
-    this.userService = new UserService();
+@controller('/admin/users')
+export class UserController extends BaseHttpController {
+  constructor(@inject(TYPES.UserService) private userService: UserService) {
+    super();
   }
 
-  public create(req: Request, res: Response) {
-    (async () => {
-      try {
-        await this.userService.create(req.body);
-        res.sendStatus(201);
-      } catch (err) {
-        res.status(400).send(err);
-      }
-    })();
+  @httpGet('/')
+  private async list(req: express.Request) {
+    try {
+      const users = await this.userService.find(req);
+      return this.json({users});
+    } catch (err) {
+      return this.badRequest(err.message);
+    }
   }
 
-  public find(req: Request, res: Response) {
-    (async () => {
-      try {
-        const provinces = await this.userService.find(req);
-        res.send({provinces});
-      } catch (err) {
-        res.status(400).send(err);
-      }
-    })();
+  @httpPost('/')
+  private async create(@request() req: express.Request) {
+    try {
+      const result = await this.userService.create(req.body);
+      return this.json({...result}, 201);
+    } catch (err) {
+      return this.badRequest(err.message);
+    }
   }
 
-  public findOne(req: Request, res: Response) {
-    (async () => {
-      try {
-        const _id = req.params.id;
-        const province = await this.userService.findOne(_id);
-        res.send(province);
-      } catch (err) {
-        res.status(400).send(err);
-      }
-    })();
+  @httpGet('/:id')
+  private async get(@requestParam('id') id: string) {
+    try {
+      console.log(id);
+      const user = await this.userService.findOne(id);
+      return this.json({user});
+    } catch (err) {
+      return this.badRequest(err.message);
+    }
   }
 
-  public update(req: Request, res: Response) {
-    (async () => {
-      try {
-        const _id = req.params.id;
-        await this.userService.update(_id, req.body);
-        res.sendStatus(200);
-      } catch (err) {
-        res.status(400).send(err);
-      }
-    })();
+  @httpPatch('/:id')
+  private async update(
+    @requestParam('id') id: string,
+    @request() req: express.Request,
+    @response() res: express.Response,
+  ) {
+    try {
+      await this.userService.update(id, req.body);
+      res.sendStatus(200);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   }
 
-  public delete(req: Request, res: Response) {
-    (async () => {
-      try {
-        const _id = req.params.id;
-        await this.userService.delete(_id);
-        res.sendStatus(200);
-      } catch (err) {
-        res.status(400).send(err);
-      }
-    })();
+  @httpDelete('/:id')
+  private async delete(@requestParam('id') id: string) {
+    try {
+      const result = await this.userService.delete(id);
+      return this.ok();
+    } catch (err) {
+      return this.badRequest(err.message);
+    }
   }
 }
 
