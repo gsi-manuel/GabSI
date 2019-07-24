@@ -44,7 +44,6 @@ export class ProvinceController extends BaseHttpController {
   @httpGet('/:id')
   private async get(@requestParam('id') id: string) {
     try {
-      console.log(id);
       const province = await this.provinceService.findOne(id);
       return this.json({province});
     } catch (err) {
