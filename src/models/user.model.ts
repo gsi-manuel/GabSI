@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 
 @pre<User>('save', function(next) {
   // or @pre(this: Car, 'save', ...
-  if (!this.isModified('password')) return next();
+  if (!this.isModified('password')) {
+    return next();
+  }
   this.password = this.generateHash(this.password);
   next();
 })

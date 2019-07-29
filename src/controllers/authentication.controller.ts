@@ -10,13 +10,13 @@ export class AuthenticationController extends BaseHttpController {
 
   @httpPost('/')
   public async login() {
-    let mocUser = {
+    const mocUser = {
       userId: '25',
     };
 
-    let config = new Config();
+    const config = new Config();
 
-    let token = jwt.sign(mocUser, config.getJwtSecret());
+    const token = jwt.sign(mocUser, config.getJwtSecret());
 
     return this.json({
       token,

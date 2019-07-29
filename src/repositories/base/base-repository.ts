@@ -18,22 +18,27 @@ export class BaseRepository implements IWrite, IRead {
   public create(item: any, attrValidate: any): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
       this.schema.findOne(attrValidate, (err: any, obj: any) => {
-        if (err) reject(err.name + ': ' + err.message);
+        if (err) {
+          reject(err.name + ': ' + err.message);
+        }
         if (obj) {
           // obj already exists
           reject('Object with "' + JSON.stringify(attrValidate) + '" is already exists');
         } else {
-          item.save((err: any, new_obj: any) => {
-            if (err) reject(err.name + ': ' + err.message);
-            resolve(new_obj);
+          item.save((error: any, newObj: any) => {
+            if (error) {
+              reject(err.name + ': ' + err.message);
+            }
+            resolve(newObj);
           });
         }
       });
     });
   }
 
-  public findOne(_id: string): Promise<any> {
+  public findOne(id: string): Promise<any> {
     return new Promise((resolve: any, reject: any) => {
+      const _id = id;
       this.schema.findById(_id, new ManageResults(resolve, reject).oneItemCallBack);
     });
   }
@@ -90,7 +95,7 @@ export class BaseRepository implements IWrite, IRead {
 
       const filter = {
         filters: {
-          mandatory: mandatory,
+          mandatory,
           // mandatory: {
           //     contains: req.query.contains,
           //     moreThan: req.query.moreThan,
@@ -107,7 +112,7 @@ export class BaseRepository implements IWrite, IRead {
 
       const pagination = {
         start: (page - 1) * count,
-        count: count,
+        count,
       };
 
       this.schema
@@ -131,9 +136,13 @@ export class BaseRepository implements IWrite, IRead {
   public delete(_id: string): Promise<boolean> {
     return new Promise((resolve: any, reject: any) => {
       this.schema.findById(_id, (err: any, obj: any) => {
-        if (err) reject(err.name + ': ' + err.message);
-        obj.remove((err: any) => {
-          if (err) reject(err.name + ': ' + err.message);
+        if (err) {
+          reject(err.name + ': ' + err.message);
+        }
+        obj.remove((error: any) => {
+          if (error) {
+            reject(error.name + ': ' + error.message);
+          }
           resolve();
         });
       });

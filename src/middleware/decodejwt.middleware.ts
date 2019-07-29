@@ -10,7 +10,7 @@ export class DecodeJWTMiddleware extends BaseMiddleware {
     if (typeof req.token !== 'undefined') {
       try {
         const config = new Config();
-        let payloadData = await jwt.decode(req.token, config.getJwtSecret());
+        const payloadData = await jwt.decode(req.token, config.getJwtSecret());
         if (!payloadData) {
           res.sendStatus(401);
         } else {

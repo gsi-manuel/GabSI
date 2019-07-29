@@ -34,7 +34,7 @@ export class ChatService {
     this.sio.on('connect', (socket: any) => {
       const session = socket.request.session;
       socket.session = session;
-      //socket.join(session.socket);
+      // socket.join(session.socket);
       socket.on(ChatEvents.MESSAGE, function(data: IMessage) {
         this.sendMessage(socket, data);
       });
@@ -61,12 +61,12 @@ export class ChatService {
 
   // Protectes
   protected sendMessage(socket: any, message: IMessage) {
-    //TODO(yoan): Save in DB
+    // TODO(yoan): Save in DB
     socket.to(message.to).emit(ChatEvents.NEW_MESSAGE, message);
   }
 
   protected typing(socket: any, typing: ITyping) {
-    //TODO(yoan): Save in DB
+    // TODO(yoan): Save in DB
     socket.to(typing.to).emit(ChatEvents.TYPING, typing);
   }
 }

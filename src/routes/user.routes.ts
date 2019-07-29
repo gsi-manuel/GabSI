@@ -5,9 +5,9 @@ import UserController from '../controllers/user.controller';
 export class UserRoutes {
   // private userController: UserController;
 
-  constructor() {
-    // this.userController = new UserController();
-  }
+  // constructor() {
+  //   // this.userController = new UserController();
+  // }
   public routes(route: any): any {
     // route
     //   .route('/')

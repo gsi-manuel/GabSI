@@ -5,14 +5,14 @@ import express from 'express';
 @injectable()
 export class VerifyTokenMiddleware extends BaseMiddleware {
   public handler(req: any, res: express.Response, next: any) {
-    let bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers['authorization'];
 
-    if (typeof bearerHeader == 'undefined') {
+    if (typeof bearerHeader === 'undefined') {
       res.sendStatus(403);
     } else {
-      let bearerParts = bearerHeader.split(' ');
-      if (bearerParts && bearerParts.length == 2) {
-        let bearerToken = bearerParts[1];
+      const bearerParts = bearerHeader.split(' ');
+      if (bearerParts && bearerParts.length === 2) {
+        const bearerToken = bearerParts[1];
         req.token = bearerToken;
         next();
       } else {

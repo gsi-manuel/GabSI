@@ -12,10 +12,10 @@ export class ChatController extends BaseHttpController {
 
   @httpGet('/:userId')
   private async initChat(@requestParam('userId') userId: string, @request() req: any) {
-    if (userId == req.authData.userId) {
+    if (userId === req.authData.userId) {
       return this.badRequest("Can't chat with yourself...");
     }
-    let chatRoom = this.chatService.retrieveOrCreateNewChat(req.authData.userId, userId);
+    const chatRoom = this.chatService.retrieveOrCreateNewChat(req.authData.userId, userId);
     return this.json(chatRoom);
   }
 }

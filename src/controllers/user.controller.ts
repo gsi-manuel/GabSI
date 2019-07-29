@@ -22,22 +22,23 @@ export class UserController extends BaseHttpController {
   }
 
   @httpGet('/')
-  private async list(req: express.Request) {
+  private async list(@request() req: express.Request, @response() res: express.Response) {
     try {
       const users = await this.userService.find(req);
-      return this.json({users});
+      console.log(`testing`);
+      res.send({users});
     } catch (err) {
-      return this.badRequest(err.message);
+      res.status(400).send(err);
     }
   }
 
   @httpPost('/')
-  private async create(@request() req: express.Request) {
+  private async create(@request() req: express.Request, @response() res: express.Response) {
     try {
-      const result = await this.userService.create(req.body);
-      return this.json({...result}, 201);
+      await this.userService.create(req.body);
+      res.sendStatus(201);
     } catch (err) {
-      return this.badRequest(err.message);
+      res.status(400).json({error: err.message});
     }
   }
 

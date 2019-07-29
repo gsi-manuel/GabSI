@@ -18,10 +18,10 @@ export class Routes {
       });
     });
 
-    let provinceRoute = this.provinceRoutes.routes(Router());
+    const provinceRoute = this.provinceRoutes.routes(Router());
     app.use('/admin/provinces', provinceRoute);
 
-    let userRoute = this.userRoutes.routes(Router());
+    const userRoute = this.userRoutes.routes(Router());
     app.use('/admin/users', userRoute);
   }
 }

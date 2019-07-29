@@ -9,7 +9,8 @@
     "dev-build": "webpack --mode development --config config/webpack.config.js",
     "dev-start": "yarn run dev-build && node ./dist/index.js",
     "start": "nodemon",
-    "start:debug": "node --inspect=5858 -r ts-node/register ./src/index.ts"
+    "start:debug": "node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "keywords": [
     "typescript.",
@@ -63,7 +64,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn lint && lint-staged"
     }
   },
   "lint-staged": {

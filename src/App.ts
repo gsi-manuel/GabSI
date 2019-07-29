@@ -44,5 +44,7 @@ export class App {
     dotenv.config();
   }
 
-  private registerMiddleWare(): void {}
+  private registerMiddleWare(): void {
+    // code here
+  }
 }

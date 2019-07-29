@@ -6,7 +6,7 @@ import {VerifyTokenMiddleware, DecodeJWTMiddleware} from './middleware/middlewar
 import './controllers/controllers';
 
 // container
-let container = new Container();
+const container = new Container();
 
 container.bind<ProvinceService>(TYPES.ProvinceService).to(ProvinceService);
 container.bind<UserService>(TYPES.UserService).to(UserService);
